@@ -1,55 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content=
-        "width=device-width, 
-        initial-scale=1.0" />
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digital Clock</title>
-  
     <style>
-    body {
-    			background-color: black;
-
-    }
-        #time {
-			background-color: black;
-            font-size: 200px;
-//            width: 500px;
-            margin: 125px;
+        body {
+            background-color: black;
+        }
+        #time, #date {
+            background-color: black;
             text-align: center;
             color: white;
         }
+        #time {
+            font-size: 200px;
+            margin: 125px;
+        }
         #date {
-        	background-color: black;
             font-size: 25px;
             margin: 6px;
-            text-align: center;
-            color: white;
         }
     </style>
 </head>
-  
 <body>
     <div id="time">8:10:45</div>
-  
+    <div id="date">Day of the week</div>
+    <p>version 0.3</p>
+    
     <script>
-        setInterval(showTime, 1000);
         function showTime() {
             let time = new Date();
             let hour = time.getHours();
             let min = time.getMinutes();
             let sec = time.getSeconds();
-            am_pm = "AM";
+            let am_pm = "AM";
   
             if (hour > 12) {
                 hour -= 12;
                 am_pm = "PM";
-            }
-            if (hour == 0) {
-                hr = 12;
+            } else if (hour === 0) {
+                hour = 12;
                 am_pm = "AM";
             }
   
@@ -57,45 +48,26 @@
             min = min < 10 ? "0" + min : min;
             sec = sec < 10 ? "0" + sec : sec;
   
-            let currentTime = hour + ":" 
-                + min + " " + am_pm;
-  
-            document.getElementById("time")
-                .innerHTML = currentTime;
+            let currentTime = hour + ":" + min + ":" + sec + " " + am_pm;
+            document.getElementById("time").innerHTML = currentTime;
         }
-  
-        showTime();
-    </script>
-    
-    	<div id="date">Day of the week</div?>
-    	
-    	<script>
-        setInterval(showDate, 1000);
-        function showDate() {
-            var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
+        function showDate() {
+            let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             let now = new Date();
-			let dayName = now.getDay(days);
-//			let monthName = 
-            let month = now.getMonth();
+            let dayName = days[now.getDay()];
+            let month = now.getMonth() + 1;
             let date = now.getDate();
             let year = now.getFullYear();
     
-            let currentDate = month + 1 + "/" + date + "/" + year;
-            let currentDay = dayName;
-  
-            document.getElementById("date")
-                .innerHTML = currentDate;
- //               .innerHTML = currentDay;
-
+            let currentDate = dayName + ", " + month + "/" + date + "/" + year;
+            document.getElementById("date").innerHTML = currentDate;
         }
   
+        setInterval(showTime, 1000);
+        setInterval(showDate, 1000);
+        showTime();
         showDate();
     </script>
-    
-<p>version 0.3
-</p>    	
-
 </body>
-  
 </html>
